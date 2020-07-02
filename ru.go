@@ -8,7 +8,7 @@ const (
 	Neuter
 )
 
-var one = [...]string{
+var units = [...]string{
 	"ноль",
 	"один",
 	"два",
@@ -31,7 +31,7 @@ var one = [...]string{
 	"девятнадцать",
 }
 
-var ten = [...]string{
+var tens = [...]string{
 	"",
 	"",
 	"двадцать",
@@ -44,7 +44,7 @@ var ten = [...]string{
 	"девяносто",
 }
 
-var hundred = [...]string{
+var hundreds = [...]string{
 	"",
 	"сто",
 	"двести",
@@ -57,7 +57,7 @@ var hundred = [...]string{
 	"девятьсот",
 }
 
-var orderedOneFeminine = [...]string{
+var orderedunitsFeminine = [...]string{
 	"нолевая",
 	"первая",
 	"вторая",
@@ -80,7 +80,7 @@ var orderedOneFeminine = [...]string{
 	"девятнадцатая",
 }
 
-var orderedTenFeminine = [...]string{
+var orderedtensFeminine = [...]string{
 	"",
 	"",
 	"двадцатая",
@@ -93,7 +93,7 @@ var orderedTenFeminine = [...]string{
 	"девяностая",
 }
 
-var orderedHundredFeminine = [...]string{
+var orderedhundredsFeminine = [...]string{
 	"",
 	"сотая",
 	"двухсотая",
@@ -106,7 +106,7 @@ var orderedHundredFeminine = [...]string{
 	"девятисотая",
 }
 
-var orderedOneMasculine = [...]string{
+var orderedunitsMasculine = [...]string{
 	"нолевой",
 	"первый",
 	"второй",
@@ -129,7 +129,7 @@ var orderedOneMasculine = [...]string{
 	"девятнадцатый",
 }
 
-var orderedTenMasculine = [...]string{
+var orderedtensMasculine = [...]string{
 	"",
 	"",
 	"двадцатый",
@@ -142,7 +142,7 @@ var orderedTenMasculine = [...]string{
 	"девяностый",
 }
 
-var orderedHundredMasculine = [...]string{
+var orderedhundredsMasculine = [...]string{
 	"",
 	"сотый",
 	"двухсотый",
@@ -155,7 +155,7 @@ var orderedHundredMasculine = [...]string{
 	"девятисотый",
 }
 
-var orderedOneNeuter = [...]string{
+var orderedunitsNeuter = [...]string{
 	"нолевое",
 	"первое",
 	"второе",
@@ -178,7 +178,7 @@ var orderedOneNeuter = [...]string{
 	"девятнадцатое",
 }
 
-var orderedTenNeuter = [...]string{
+var orderedtensNeuter = [...]string{
 	"",
 	"",
 	"двадцатый",
@@ -191,7 +191,7 @@ var orderedTenNeuter = [...]string{
 	"девяностый",
 }
 
-var orderedHundredNeuter = [...]string{
+var orderedhundredsNeuter = [...]string{
 	"",
 	"сотое",
 	"двухсотое",
@@ -204,7 +204,7 @@ var orderedHundredNeuter = [...]string{
 	"девятисотое",
 }
 
-var orderedOnePlural = [...]string{
+var orderedunitsPlural = [...]string{
 	"нолевые",
 	"первые",
 	"вторые",
@@ -227,7 +227,7 @@ var orderedOnePlural = [...]string{
 	"девятнадцатые",
 }
 
-var orderedTenPlural = [...]string{
+var orderedtensPlural = [...]string{
 	"",
 	"",
 	"двадцатые",
@@ -240,7 +240,7 @@ var orderedTenPlural = [...]string{
 	"девяностые",
 }
 
-var orderedHundredPlural = [...]string{
+var orderedhundredsPlural = [...]string{
 	"",
 	"сотые",
 	"двухсотые",
@@ -253,7 +253,7 @@ var orderedHundredPlural = [...]string{
 	"девятисотые",
 }
 
-var onePreffix = []string{
+var unitsPreffix = []string{
 	"",
 	"одно",
 	"двух",
@@ -276,7 +276,7 @@ var onePreffix = []string{
 	"девятнадцати",
 }
 
-var tenPreffix = [...]string{
+var tensPreffix = [...]string{
 	"",
 	"",
 	"двадцати",
@@ -289,7 +289,7 @@ var tenPreffix = [...]string{
 	"девяносто",
 }
 
-var hundredPreffix = [...]string{
+var hundredsPreffix = [...]string{
 	"",
 	"сто",
 	"двухсот",
@@ -302,6 +302,7 @@ var hundredPreffix = [...]string{
 }
 
 const (
+	minus             = "minus:"
 	thousandFeminine  = "тысячная"
 	millionFeminine   = "миллионная"
 	billionFeminine   = "миллиардная"
