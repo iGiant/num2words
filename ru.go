@@ -311,7 +311,22 @@ var hundredsPreffix = [...]string{
 	"восьмиста",
 	"девятиста",
 }
-var thousandString = [...]string{"тысяча", "тысячи", "тысяч"}
+
+var emptyString = [...]string{"", "", ""}
+
+var thousandString = [...]string{" тысяча", " тысячи", " тысяч"}
+
+var millionString = [...]string{" миллион", " миллиона", " миллионов"}
+
+var billionString = [...]string{" миллиард", " миллиарда", " миллиардов"}
+
+var trillionString = [...]string{" триллион", " триллиона", " триллионов"}
+
+var quadrillionString = [...]string{" квадриллион", " квадриллиона", " квадриллионов"}
+
+var quintillionString = [...]string{" квинтиллион", " квинтиллиона", " квинтиллионов"}
+
+var sextillionString = [...]string{" секстиллион", " секстиллиона", " секстиллионов"}
 
 const (
 	minus             = "минус "

@@ -2,13 +2,13 @@ package num2words
 
 import (
 	"fmt"
+	"strings"
 )
 
 func unitsConvert(value int, gen gender) (string, error) {
-	if value > 999 || value < -999 {
-		return "", fmt.Errorf("number limit exceeded (need [-999..999])")
+	if value > 999 {
+		return "", fmt.Errorf("number limit exceeded (need < 1000)")
 	}
-	negative := value < 0
 	result := ""
 	value, one := divMod(value, 1)
 	result = units[one]
@@ -19,10 +19,12 @@ func unitsConvert(value int, gen gender) (string, error) {
 		result = neuterUnits[1]
 	}
 	if value == 0 {
-		return insertNegative(result, negative), nil
+		return result, nil
 	}
 	if one == 0 {
 		result = ""
+	} else {
+		result = " " + result
 	}
 	value, ten := divMod(value, 1)
 	switch ten {
@@ -31,13 +33,16 @@ func unitsConvert(value int, gen gender) (string, error) {
 	case 1:
 		result = units[ten*10+one]
 	default:
-		result = tens[ten] + " " + result
+		result = tens[ten] + result
 	}
 	_, hundred := divMod(value, 1)
 	if hundred == 0 {
-		return insertNegative(result, negative), nil
+		return result, nil
 	}
-	return insertNegative(hundreds[hundred]+" "+result, negative), nil
+	if result != "" {
+		result = " " + strings.TrimSpace(result)
+	}
+	return hundreds[hundred] + result, nil
 }
 
 func insertNegative(value string, negative bool) string {
@@ -63,32 +68,118 @@ func divMod(value, order int) (int, int) {
 	return div, mod
 }
 
-func NumToStr(value int, genderValue gender) (string, error) {
+func addOrder(intValue int, strValue string, order [3]string) string {
+	if intValue == 0 {
+		return ""
+	}
+	return strValue + Enditive(intValue, order[0], order[1], order[2])
+}
+
+func Convert(value int, genderValue gender) (string, error) {
 	negative := value < 0
 	if negative {
 		value *= -1
 	}
+	result := make([]string, 0)
 	value, one := divMod(value, 3)
+	oneResult, err := unitsConvert(one, genderValue)
+	if err != nil {
+		return "", err
+	}
+	oneResult = addOrder(one, oneResult, emptyString)
+	if oneResult != "" {
+		result = append(result, oneResult)
+	}
 	if value == 0 {
-		result, err := unitsConvert(one, genderValue)
-		return insertNegative(result, negative), err
+		if oneResult == "" {
+			oneResult = units[0]
+		}
+		return insertNegative(oneResult, negative), err
 	}
 	value, thousand := divMod(value, 3)
-	if value == 0 {
-		thousandResult, err := unitsConvert(thousand, Feminine)
-		if err != nil {
-			return "", err
-		}
-		thousandResult = thousandResult + " " + Enditive(thousand, thousandString[0], thousandString[1], thousandString[2])
-		oneResult, err := unitsConvert(one, genderValue)
-		if err != nil {
-			return "", err
-		}
-		if oneResult == units[0] {
-			oneResult = ""
-		}
-		return insertNegative(thousandResult+" "+oneResult, negative),
-			nil
+	thousandResult, err := unitsConvert(thousand, Feminine)
+	if err != nil {
+		return "", err
 	}
-	return "", nil
+	thousandResult = addOrder(thousand, thousandResult, thousandString)
+	if thousandResult != "" {
+		result = append([]string{thousandResult}, result...)
+	}
+	if value == 0 {
+		return insertNegative(strings.Join(result, " "), negative), nil
+	}
+	value, million := divMod(value, 3)
+	millionResult, err := unitsConvert(million, Masculine)
+	if err != nil {
+		return "", err
+	}
+	millionResult = addOrder(million, millionResult, millionString)
+	if millionResult != "" {
+		result = append([]string{millionResult}, result...)
+	}
+	if value == 0 {
+		return insertNegative(strings.Join(result, " "), negative), nil
+	}
+	value, billion := divMod(value, 3)
+	billionResult, err := unitsConvert(billion, Masculine)
+	if err != nil {
+		return "", err
+	}
+	billionResult = addOrder(billion, billionResult, billionString)
+	if billionResult != "" {
+		result = append([]string{billionResult}, result...)
+	}
+	if value == 0 {
+		return insertNegative(strings.Join(result, " "), negative), nil
+	}
+	value, trillion := divMod(value, 3)
+	trillionResult, err := unitsConvert(trillion, Masculine)
+	if err != nil {
+		return "", err
+	}
+	trillionResult = addOrder(trillion, trillionResult, trillionString)
+	if trillionResult != "" {
+		result = append([]string{trillionResult}, result...)
+	}
+	if value == 0 {
+		return insertNegative(strings.Join(result, " "), negative), nil
+	}
+
+	value, quadrillion := divMod(value, 3)
+	quadrillionResult, err := unitsConvert(quadrillion, Masculine)
+	if err != nil {
+		return "", err
+	}
+	quadrillionResult = addOrder(quadrillion, quadrillionResult, quadrillionString)
+	if quadrillionResult != "" {
+		result = append([]string{quadrillionResult}, result...)
+	}
+	if value == 0 {
+		return insertNegative(strings.Join(result, " "), negative), nil
+	}
+	value, quintillion := divMod(value, 3)
+	quintillionResult, err := unitsConvert(quintillion, Masculine)
+	if err != nil {
+		return "", err
+	}
+	quintillionResult = addOrder(quintillion, quintillionResult, quintillionString)
+	if quintillionResult != "" {
+		result = append([]string{quintillionResult}, result...)
+	}
+	if value == 0 {
+		return insertNegative(strings.Join(result, " "), negative), nil
+	}
+	value, sextillion := divMod(value, 3)
+	sextillionResult, err := unitsConvert(sextillion, Masculine)
+	if err != nil {
+		return "", err
+	}
+	sextillionResult = addOrder(sextillion, sextillionResult, sextillionString)
+	if sextillionResult != "" {
+		result = append([]string{sextillionResult}, result...)
+	}
+	if value == 0 {
+		return insertNegative(strings.Join(result, " "), negative), nil
+	}
+	return "", fmt.Errorf("number is big")
 }

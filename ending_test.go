@@ -2,7 +2,6 @@ package num2words
 
 import "testing"
 
-
 func TestEnditive(t *testing.T) {
 	const (
 		form1 = "a"
@@ -10,14 +9,14 @@ func TestEnditive(t *testing.T) {
 		form3 = "c"
 	)
 	type try struct {
-		input int
+		input  int
 		result string
 	}
 	inputNums := []try{
-		try{0, form3}, 
-		try{1, form1}, 
-		try{19, form3}, 
-		try{39, form3}, 
+		try{0, form3},
+		try{1, form1},
+		try{19, form3},
+		try{39, form3},
 		try{101, form1},
 		try{1011, form3},
 		try{1104, form2},

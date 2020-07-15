@@ -9,10 +9,10 @@ func Enditive(num int, form1, form2, form3 string) string {
 		return form3
 	}
 	mod = num % 10
-	if mod == 0 || mod >=5 {
+	if mod == 0 || mod >= 5 {
 		return form3
 	}
-	if mod == 1{
+	if mod == 1 {
 		return form1
 	}
 	return form2
