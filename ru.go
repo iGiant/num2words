@@ -311,6 +311,7 @@ var hundredsPreffix = [...]string{
 	"восьмиста",
 	"девятиста",
 }
+var thousandString = [...]string{"тысяча", "тысячи", "тысяч"}
 
 const (
 	minus             = "минус "
