@@ -31,6 +31,17 @@ var units = [...]string{
 	"девятнадцать",
 }
 
+var feminineUnits = [...]string{
+	"",
+	"одна",
+	"две",
+}
+
+var neuterUnits = [...]string{
+	"",
+	"одно",
+}
+
 var tens = [...]string{
 	"",
 	"",

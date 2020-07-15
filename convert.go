@@ -12,16 +12,11 @@ func unitsConvert(value int, gen gender) (string, error) {
 	result := ""
 	value, one := divMod(value)
 	result = units[one]
-	if gen == Feminine {
-		switch one {
-		case 1:
-			result = "одна"
-		case 2:
-			result = "две"
-		}
+	if gen == Feminine && (one == 1 || one == 2) {
+		result = feminineUnits[one]
 	}
 	if gen == Neuter && one == 1 {
-		result = "одно"
+		result = neuterUnits[1]
 	}
 	if value == 0 {
 		return insertNegative(result, negative), nil
