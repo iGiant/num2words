@@ -96,90 +96,42 @@ func Convert(value int, genderValue gender) (string, error) {
 		}
 		return insertNegative(oneResult, negative), err
 	}
-	value, thousand := divMod(value, 3)
-	thousandResult, err := unitsConvert(thousand, Feminine)
-	if err != nil {
-		return "", err
-	}
-	thousandResult = addOrder(thousand, thousandResult, thousandString)
-	if thousandResult != "" {
-		result = append([]string{thousandResult}, result...)
-	}
+	value, err = getCapacity(&result, value, thousandString, Feminine)
 	if value == 0 {
 		return insertNegative(strings.Join(result, " "), negative), nil
 	}
-	value, million := divMod(value, 3)
-	millionResult, err := unitsConvert(million, Masculine)
-	if err != nil {
-		return "", err
-	}
-	millionResult = addOrder(million, millionResult, millionString)
-	if millionResult != "" {
-		result = append([]string{millionResult}, result...)
-	}
+	value, err = getCapacity(&result, value, millionString, Masculine)
 	if value == 0 {
 		return insertNegative(strings.Join(result, " "), negative), nil
 	}
-	value, billion := divMod(value, 3)
-	billionResult, err := unitsConvert(billion, Masculine)
-	if err != nil {
-		return "", err
-	}
-	billionResult = addOrder(billion, billionResult, billionString)
-	if billionResult != "" {
-		result = append([]string{billionResult}, result...)
-	}
+	value, err = getCapacity(&result, value, billionString, Masculine)
 	if value == 0 {
 		return insertNegative(strings.Join(result, " "), negative), nil
 	}
-	value, trillion := divMod(value, 3)
-	trillionResult, err := unitsConvert(trillion, Masculine)
-	if err != nil {
-		return "", err
-	}
-	trillionResult = addOrder(trillion, trillionResult, trillionString)
-	if trillionResult != "" {
-		result = append([]string{trillionResult}, result...)
-	}
+	value, err = getCapacity(&result, value, trillionString, Masculine)
 	if value == 0 {
 		return insertNegative(strings.Join(result, " "), negative), nil
 	}
-
-	value, quadrillion := divMod(value, 3)
-	quadrillionResult, err := unitsConvert(quadrillion, Masculine)
-	if err != nil {
-		return "", err
-	}
-	quadrillionResult = addOrder(quadrillion, quadrillionResult, quadrillionString)
-	if quadrillionResult != "" {
-		result = append([]string{quadrillionResult}, result...)
-	}
+	value, err = getCapacity(&result, value, quadrillionString, Masculine)
 	if value == 0 {
 		return insertNegative(strings.Join(result, " "), negative), nil
 	}
-	value, quintillion := divMod(value, 3)
-	quintillionResult, err := unitsConvert(quintillion, Masculine)
-	if err != nil {
-		return "", err
-	}
-	quintillionResult = addOrder(quintillion, quintillionResult, quintillionString)
-	if quintillionResult != "" {
-		result = append([]string{quintillionResult}, result...)
-	}
-	if value == 0 {
-		return insertNegative(strings.Join(result, " "), negative), nil
-	}
-	value, sextillion := divMod(value, 3)
-	sextillionResult, err := unitsConvert(sextillion, Masculine)
-	if err != nil {
-		return "", err
-	}
-	sextillionResult = addOrder(sextillion, sextillionResult, sextillionString)
-	if sextillionResult != "" {
-		result = append([]string{sextillionResult}, result...)
-	}
+	value, err = getCapacity(&result, value, quintillionString, Masculine)
 	if value == 0 {
 		return insertNegative(strings.Join(result, " "), negative), nil
 	}
 	return "", fmt.Errorf("number is big")
+}
+
+func getCapacity(result *[]string, value int, capacityName [3]string, gen gender) (int, error) {
+	value, capacity := divMod(value, 3)
+	capacityResult, err := unitsConvert(capacity, gen)
+	if err != nil {
+		return 0, err
+	}
+	capacityResult = addOrder(capacity, capacityResult, capacityName)
+	if capacityResult != "" {
+		*result = append([]string{capacityResult}, *result...)
+	}
+	return value, nil
 }
