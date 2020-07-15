@@ -10,5 +10,17 @@ func TestDivMod(t *testing.T) {
 }
 
 func TestUnitsConvert(t *testing.T) {
-	fmt.Println(unitsConvert(5))
+	datas := []int{-10, 0, 3, 11, 19, 20, 50, 119, 207, -567, 991, 101}
+	var (
+		result string
+		err    error
+	)
+
+	for _, data := range datas {
+		result, err = unitsConvert(data, Neuter)
+		if err != nil {
+			t.Error(err)
+		}
+		fmt.Println(data, "->", result)
+	}
 }

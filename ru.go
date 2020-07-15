@@ -302,7 +302,7 @@ var hundredsPreffix = [...]string{
 }
 
 const (
-	minus             = "minus:"
+	minus             = "минус "
 	thousandFeminine  = "тысячная"
 	millionFeminine   = "миллионная"
 	billionFeminine   = "миллиардная"

@@ -4,27 +4,52 @@ import (
 	"fmt"
 )
 
-func unitsConvert(value int) (string, error) {
-	if value > 1000 || value < -1000 {
+func unitsConvert(value int, gen gender) (string, error) {
+	if value > 999 || value < -999 {
 		return "", fmt.Errorf("number limit exceeded (need [-999..999])")
 	}
+	negative := value < 0
 	result := ""
 	value, one := divMod(value)
 	result = units[one]
+	if gen == Feminine {
+		switch one {
+		case 1:
+			result = "одна"
+		case 2:
+			result = "две"
+		}
+	}
+	if gen == Neuter && one == 1 {
+		result = "одно"
+	}
 	if value == 0 {
-		return result, nil
+		return insertNegative(result, negative), nil
 	}
 	if one == 0 {
 		result = ""
 	}
 	value, ten := divMod(value)
 	switch ten {
-	case 0: result
+	case 0:
+		break
+	case 1:
+		result = units[ten*10+one]
+	default:
+		result = tens[ten] + " " + result
 	}
-		result
+	_, hundred := divMod(value)
+	if hundred == 0 {
+		return insertNegative(result, negative), nil
 	}
-	result = tens[ten] + " " + result
-	return result, nil
+	return insertNegative(hundreds[hundred]+" "+result, negative), nil
+}
+
+func insertNegative(value string, negative bool) string {
+	if negative {
+		return minus + value
+	}
+	return value
 }
 
 func divMod(value int) (int, int) {
@@ -32,7 +57,7 @@ func divMod(value int) (int, int) {
 		return 0, 0
 	}
 	div := value / 10
-	mod := value - div * 10
+	mod := value - div*10
 	if mod < 0 {
 		mod *= -1
 	}
